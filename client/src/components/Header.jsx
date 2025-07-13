@@ -42,7 +42,7 @@ export default function Header() {
     <Link to='/about' className="nav-link text-dark fw-semibold hover-effect text-decoration-none">About</Link>
   </li>
   <li className="nav-item">
-    <Link to='/signin' className="nav-link text-dark fw-semibold hover-effect text-decoration-none">Sign In</Link>
+    <Link to='/sign-in' className="nav-link text-dark fw-semibold hover-effect text-decoration-none">Sign In</Link>
   </li>
 </ul>
 
