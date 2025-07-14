@@ -1,64 +1,58 @@
-import React from 'react';
 import { FaSearch } from 'react-icons/fa';
-import { Link  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
-    <header className="bg-light shadow-sm py-3 border-bottom">
-      <div className="container-fluid px-4">
-        <div className="row align-items-center">
-          {/* Brand */}
-          <div className="col-4">
-  <Link to='/' className="text-decoration-none">
-    <h1 className="fw-bold fs-5 mb-0">
-      <span className="text-secondary">Sahand</span>
-      <span className="text-dark">Estate</span>
-    </h1>
-  </Link>
-</div>
+    <header className="bg-light shadow-sm border-bottom py-3">
+      <div className="container-fluid d-flex justify-content-between align-items-center px-4">
+        {/* Logo */}
+        <Link to="/" className="text-decoration-none">
+          <h1 className="fw-bold fs-5 mb-0">
+            <span className="text-secondary">Sahand</span>
+            <span className="text-dark">Estate</span>
+          </h1>
+        </Link>
 
+        {/* Search bar */}
+        <form className="d-none d-md-flex align-items-center bg-white border rounded px-2 py-1" style={{ maxWidth: '300px', width: '100%' }}>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="form-control border-0 shadow-none me-2"
+          />
+          <FaSearch className="text-muted" />
+        </form>
 
-          {/* Search Bar */}
-          <div className="col-4 d-flex justify-content-center">
-            <form className="d-flex bg-white border rounded px-2 py-1 w-100" style={{ maxWidth: "400px" }}>
-              <input
-                type="text"
-                placeholder="Search..."
-                className="form-control border-0 me-2 shadow-none"
-              />
-              <button type="submit" className="btn btn-link p-0 text-dark">
-                <FaSearch />
-              </button>
-            </form>
-          </div>
+        {/* Navigation */}
+        <ul className="nav align-items-center gap-3 mb-0">
+          <li className="nav-item">
+            <Link to="/" className="nav-link text-dark fw-medium">Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/about" className="nav-link text-dark fw-medium">About</Link>
+          </li>
 
-          {/* Nav Links with Hover Effect */}
-          <div className="col-4 d-flex justify-content-end">
-           <ul className="nav">
-  <li className="nav-item d-none d-sm-block">
-    <Link to='/' className="nav-link text-dark fw-semibold hover-effect text-decoration-none">Home</Link>
-  </li>
-  <li className="nav-item">
-    <Link to='/about' className="nav-link text-dark fw-semibold hover-effect text-decoration-none">About</Link>
-  </li>
-  <li className="nav-item">
-    <Link to='/sign-in' className="nav-link text-dark fw-semibold hover-effect text-decoration-none">Sign In</Link>
-  </li>
-</ul>
-
-          </div>
-        </div>
+          {currentUser ? (
+            <li className="nav-item">
+              <Link to="/profile">
+                <img
+                  src={currentUser.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+                  alt="profile"
+                  className="rounded-circle"
+                  style={{ width: '30px', height: '30px', objectFit: 'cover' }}
+                />
+              </Link>
+            </li>
+          ) : (
+            <li className="nav-item">
+              <Link to="/sign-in" className="nav-link text-dark fw-medium">Sign In</Link>
+            </li>
+          )}
+        </ul>
       </div>
-
-      {/* Custom hover style */}
-      <style>
-        {`
-          .hover-effect:hover {
-            color: #0d6efd !important;  /* Bootstrap primary color */
-            font-weight: bold;
-          }
-        `}
-      </style>
     </header>
   );
 }

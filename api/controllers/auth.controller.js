@@ -71,7 +71,6 @@ export const google = async (req, res, next) => {
       email,
       password: hashedPassword,
       avatar: photo || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-
     });
 
     await newUser.save();
@@ -88,3 +87,14 @@ export const google = async (req, res, next) => {
     next(errorHandler(500, "Google sign-in failed"));
   }
 };
+
+// ✅ SIGNOUT CONTROLLER
+export const signOut = async (req, res, next) => {
+  try {
+    res.clearCookie('access_token');
+    res.status(200).json({ success: true, message: 'User has been logged out!' });
+  } catch (error) {
+    next(error);
+  }
+};
+
