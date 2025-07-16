@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   updateUserStart,
   updateUserSuccess,
@@ -152,13 +152,23 @@ const handleSignOut = async () => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary w-100"
-          disabled={loading}
-        >
-          {loading ? 'Loading...' : 'Update'}
-        </button>
+                <div className="d-grid gap-2">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={loading}
+          >
+            {loading ? 'Loading...' : 'Update'}
+          </button>
+
+          <Link
+            to="/create-listing"
+            className="btn btn-success text-uppercase text-center"
+          >
+            Create Listing
+          </Link>
+        </div>
+        
       </form>
 
       <div className="d-flex justify-content-between w-100 mt-4 px-1">
