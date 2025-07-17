@@ -8,7 +8,12 @@ const storage = new CloudinaryStorage({
   params: {
     folder: 'mern-estate',
      allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
-    transformation: [{ quality: 'auto' }, { fetch_format: 'auto' }],
+    transformation: [
+  { width: 1200, height: 600, crop: 'pad', background: 'auto' },
+  { quality: 'auto:best' },
+  { fetch_format: 'auto' },
+]
+
   },
 });
 
