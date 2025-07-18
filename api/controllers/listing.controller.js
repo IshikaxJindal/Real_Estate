@@ -86,10 +86,13 @@ export const getListings = async (req, res, next) => {
       return { $in: [false, true] }; // fallback
     };
 
-    const offer = normalizeBooleanFilter(req.query.offer);
-    const furnished = normalizeBooleanFilter(req.query.furnished);
-    const parking = normalizeBooleanFilter(req.query.parking);
-    const lift = normalizeBooleanFilter(req.query.lift);
+  const query = {};
+
+if (req.query.offer === 'true') query.offer = true;
+if (req.query.furnished === 'true') query.furnished = true;
+if (req.query.parking === 'true') query.parking = true;
+if (req.query.lift === 'true') query.lift = true;
+
 
     // Handle type filter
     let type = req.query.type;
@@ -102,16 +105,14 @@ export const getListings = async (req, res, next) => {
     const order = req.query.order === 'asc' ? 1 : -1;
 
     const listings = await Listing.find({
-      name: { $regex: searchTerm, $options: 'i' },
-      offer,
-      furnished,
-      parking,
-      lift,
-      type,
-    })
-      .sort({ [sort]: order })
-      .limit(limit)
-      .skip(startIndex);
+  name: { $regex: searchTerm, $options: 'i' },
+  ...query, // ✅ apply only active filters
+  type,
+})
+  .sort({ [sort]: order })
+  .limit(limit)
+  .skip(startIndex);
+
 
     return res.status(200).json(listings);
   } catch (error) {

@@ -123,6 +123,8 @@ export default function CreateListing() {
       }
       setLoading(true);
       setError(false);
+      const onlyUrls = formData.imageUrls.map((img) => img.url);
+
       const res = await fetch('/api/listing/create', {
         method: 'POST',
         headers: {

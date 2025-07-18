@@ -120,7 +120,7 @@ export default function Listing() {
       </p>
       {listing.offer && (
         <p className="bg-success text-white text-center p-2 rounded" style={{ minWidth: '150px' }}>
-          ₹{+listing.regularPrice - +listing.discountPrice} Discount
+          ₹{+listing.regularPrice - +listing.discountPrice} OFF
         </p>
       )}
     </div>
